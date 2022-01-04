@@ -1,0 +1,73 @@
+name: QuiteUsefulCommands
+version: '${project.version}'
+main: io.github.mightycoderx.quiteusefulcommands.QuiteUsefulCommands
+api-version: 1.18
+authors: [ MightyCoderX ]
+description: A bunch of useful commands
+commands:
+  quiteusefulcommands:
+    description: 'The main command of the plugin'
+    usage: '/<command> [help | reload]'
+    aliases: ['quc']
+    permission: 'quiteusefulcommands.main'
+  
+  heal:
+    description: 'Heal yourself or another player'
+    usage: '/<command> [<player>]'
+    permission: 'quiteusefulcommands.heal'
+  
+  feed:
+    description: 'Feed yourself or another player'
+    usage: '/<command> [<player>]'
+    permission: 'quiteusefulcommands.feed'
+  
+  gm:
+    description: 'Update your game mode'
+    usage: '/<command> [<player>]'
+    aliases: ['gms', 'gmc', 'gma', 'gmsp']
+    permission: 'quiteusefulcommands.gamemode'
+    
+  fly:
+    description: 'Toggles fly for you or another player'
+    usage: '/<command> [<player>]'
+    permission: 'quiteusefulcommands.fly'
+    
+  sudo:
+    description: 'Makes <player> execute <command>'
+    usage: '/<command> <player> <command>'
+    permission: 'quiteusefulcommands.sudo'
+
+  enderchest:
+    description: 'Open your enderchest or that of <player>'
+    usage: '/<command> [<player>]'
+    aliases: ['echest', 'ender']
+    permission: 'quiteusefulcommands.enderchest'
+  
+  workbench:
+    description: 'Open a crafting table'
+    usage: '/<command>'
+    aliases: ['craft', 'workbench', 'wb', 'crafting']
+    permission: 'quiteusefulcommands.crafting'
+    
+  invsee:
+    description: 'Open your inventory or that of <player>'
+    usage: '/<command> [<player>]'
+    permission: 'quiteusefulcommands.invsee'
+    
+  ride:
+    description: 'Makes you ride <player>'
+    usage: '/<command> <player>'
+    aliases: [ 'mount', 'rideplayer', 'mountplayer']
+    permission: 'quiteusefulcommands.ride'
+    
+  spawnmob:
+    description: 'Spawns a mob or multiple'
+    usage: '/<command> <mob> [<count>]'
+    aliases: ['spawnentity', 'mob']
+    permission: 'quiteusefulcommands.spawnmob'
+    
+  custommap:
+    description: 'Gives you a custom map with the color or image you specified'
+    usage: '/<command> <image <url>|color <color>> [player]'
+    permission: 'quiteusefulcommands.custommap'
+    
