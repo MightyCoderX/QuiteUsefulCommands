@@ -23,10 +23,11 @@ jobs:
         distribution: 'adopt'
         cache: maven
         
-    - name: Setup Buildtools
-      # You may pin to the exact commit or the version.
-      # uses: buildtool/setup-buildtools-action@db7e5cadc3736664bea2000a15af88d22920901a
-      uses: buildtool/setup-buildtools-action@v0.0.1
-      
+    - name: Install Buildtools
+      run:  curl -o BuildTools.jar https://hub.spigotmc.org/jenkins/job/BuildTools/lastSuccessfulBuild/artifact/target/BuildTools.jar
+    
+    - name: Run BuildTools
+      run: git config --global --unset core.autocrlf & java -jar BuildTools.jar
+
     - name: Build with Maven
       run: mvn -B clean package --file pom.xml
