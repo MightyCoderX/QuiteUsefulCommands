@@ -2,8 +2,6 @@ package io.github.mightycoderx.quiteusefulcommands.maps;
 
 import io.github.mightycoderx.quiteusefulcommands.QuiteUsefulCommands;
 import io.github.mightycoderx.quiteusefulcommands.utils.HTTPUtils;
-import net.minecraft.server.MinecraftServer;
-import net.minecraft.world.level.saveddata.maps.WorldMap;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -11,7 +9,6 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.MapMeta;
 
 import java.awt.*;
-import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicReference;
@@ -60,7 +57,11 @@ public class CustomMapManager
 						httpUtils.getImageFromUrl(mapImage.getUrl(), image::set);
 
 						mapMeta.getMapView().addRenderer(
-							new ImageMapRenderer(image.get(), mapImage.shouldScaleDown())
+							new ImageMapRenderer(
+								image.get(),
+								mapImage.getStartPos(),
+								mapImage.shouldScaleDown()
+							)
 						);
 					}
 					else if(obj instanceof Byte color)

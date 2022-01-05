@@ -13,10 +13,14 @@ public class QuiteUsefulCommands extends JavaPlugin
 	private CustomMapManager customMapManager;
 
 	@Override
-	public void onEnable()
+	public void onLoad()
 	{
 		customMapManager = new CustomMapManager(this);
+	}
 
+	@Override
+	public void onEnable()
+	{
 		CommandManager commandManager = new CommandManager(this);
 
 		for(Command command : commandManager.getCommands())

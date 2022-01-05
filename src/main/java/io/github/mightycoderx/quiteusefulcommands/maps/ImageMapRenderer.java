@@ -12,10 +12,12 @@ public class ImageMapRenderer extends MapRenderer
 {
 	private final Image image;
 	private final boolean shouldScaleDown;
+	private final MapImage.Vector startPos;
 
-	public ImageMapRenderer(Image image, boolean shouldScaleDown)
+	public ImageMapRenderer(Image image, MapImage.Vector startPos, boolean shouldScaleDown)
 	{
 		this.image = image;
+		this.startPos = startPos;
 		this.shouldScaleDown = shouldScaleDown;
 	}
 
@@ -29,6 +31,6 @@ public class ImageMapRenderer extends MapRenderer
 		{
 			img = MapPalette.resizeImage(image);
 		}
-		canvas.drawImage(0, 0, img);
+		canvas.drawImage(-startPos.x, -startPos.y, img);
 	}
 }

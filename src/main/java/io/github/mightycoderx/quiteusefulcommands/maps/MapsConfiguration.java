@@ -1,6 +1,5 @@
 package io.github.mightycoderx.quiteusefulcommands.maps;
 
-import io.github.mightycoderx.quiteusefulcommands.QuiteUsefulCommands;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.InvalidConfigurationException;
@@ -68,6 +67,8 @@ public class MapsConfiguration
 		{
 			mapsFileConfig.set("maps." + id + ".url", mapImage.getUrl().toString());
 			mapsFileConfig.set("maps." + id + ".shouldScaleDown", mapImage.shouldScaleDown());
+			mapsFileConfig.set("maps." + id + ".startPos.x", mapImage.getStartPos().x);
+			mapsFileConfig.set("maps." + id + ".startPos.y", mapImage.getStartPos().y);
 		}
 		else if(obj instanceof Byte color)
 		{
@@ -89,32 +90,49 @@ public class MapsConfiguration
 
 		for(String id : mapsSection.getKeys(false))
 		{
-			try
-			{
-				Byte obj = Byte.parseByte(mapsSection.getString(id));
-				mapManager.getMaps().put(Integer.parseInt(id), obj);
-			}
-			catch (NumberFormatException ex)
-			{
-				try
-				{
-					URL url = new URL(mapsSection.getString(id + ".url"));
-
-					mapManager.getMaps().put(Integer.parseInt(id),
-						new MapImage(
-							url,
-							mapsSection.getBoolean(id + ".shouldScaleDown")
-						)
-					);
-				}
-				catch (MalformedURLException | NullPointerException ex1)
-				{
-					Bukkit.getServer().getLogger().severe("Invalid value in maps.yml at id " + id);
-				}
-			}
+			readMap(mapsSection, id);
 		}
 
 		mapManager.renderAllMaps();
 	}
 
+
+	public void readMap(ConfigurationSection mapsSection, String id)
+	{
+		try
+		{
+			Byte obj = Byte.parseByte(mapsSection.getString(id));
+			mapManager.getMaps().put(Integer.parseInt(id), obj);
+		}
+		catch (NumberFormatException ex)
+		{
+			try
+			{
+				URL url = new URL(mapsSection.getString(id + ".url"));
+				MapImage.Vector startPos = readImageMapStartPos(
+						mapsSection.getConfigurationSection(id + ".startPos")
+				);
+
+				mapManager.getMaps().put(Integer.parseInt(id),
+					new MapImage(
+						url,
+						startPos,
+						mapsSection.getBoolean(id + ".shouldScaleDown")
+					)
+				);
+			}
+			catch (MalformedURLException | NullPointerException ex1)
+			{
+				Bukkit.getServer().getLogger().severe("Invalid value in maps.yml at id " + id);
+			}
+		}
+	}
+
+	public MapImage.Vector readImageMapStartPos(ConfigurationSection startPosSection)
+	{
+		return new MapImage.Vector(
+			startPosSection.getInt("x"),
+			startPosSection.getInt("y")
+		);
+	}
 }

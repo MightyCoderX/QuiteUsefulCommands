@@ -6,7 +6,9 @@ import io.github.mightycoderx.quiteusefulcommands.maps.ImageMapRenderer;
 import io.github.mightycoderx.quiteusefulcommands.maps.MapImage;
 import io.github.mightycoderx.quiteusefulcommands.utils.ChatUtils;
 import io.github.mightycoderx.quiteusefulcommands.utils.HTTPUtils;
+import io.github.mightycoderx.quiteusefulcommands.utils.MapUtils;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.command.CommandSender;
@@ -30,7 +32,7 @@ public class CustomMapCommand extends Command
 
 	public CustomMapCommand(QuiteUsefulCommands plugin)
 	{
-		super("custommap", "<image <url> <shouldScaleDown>|color <color>>");
+		super("custommap", "<image <url> [<startPosX>] [<startPosY>] [<shouldScaleDown>] | color <color>>");
 		this.plugin = plugin;
 	}
 
@@ -47,7 +49,7 @@ public class CustomMapCommand extends Command
 		{
 			if(args[0].equals("image"))
 			{
-				giveImageCustomMap(player, args[1], false);
+				giveImageCustomMap(player, args[1], new MapImage.Vector(0, 0), false);
 			}
 			else if(args[0].equals("color"))
 			{
@@ -75,7 +77,9 @@ public class CustomMapCommand extends Command
 
 				player.getInventory().addItem(customMap);
 
-				ChatUtils.sendPrefixedMessage(player, "&aGenerated " + rawColor + " map!");
+				ChatColor chatColor = MapUtils.mapColorToChatColor(finalColor);
+				ChatUtils.sendPrefixedMessage(player, "&aGenerated " + chatColor +
+						chatColor.name() + "&a map!");
 			}
 			else
 			{
@@ -87,7 +91,41 @@ public class CustomMapCommand extends Command
 			if(args[0].equals("image"))
 			{
 				boolean shouldScaleDown = Boolean.parseBoolean(args[2]);
-				giveImageCustomMap(player, args[1], shouldScaleDown);
+				giveImageCustomMap(player, args[1], new MapImage.Vector(0, 0), shouldScaleDown);
+			}
+			else
+			{
+				return false;
+			}
+		}
+		else if(args.length == 4)
+		{
+			if(args[0].equals("image"))
+			{
+				MapImage.Vector startPos = new MapImage.Vector(
+					Integer.parseInt(args[2]),
+					Integer.parseInt(args[3])
+				);
+
+				giveImageCustomMap(player, args[1], startPos, false);
+			}
+			else
+			{
+				return false;
+			}
+		}
+		else if(args.length == 5)
+		{
+			if(args[0].equals("image"))
+			{
+				boolean shouldScaleDown = Boolean.parseBoolean(args[4]);
+
+				MapImage.Vector startPos = new MapImage.Vector(
+						Integer.parseInt(args[2]),
+						Integer.parseInt(args[3])
+				);
+
+				giveImageCustomMap(player, args[1], startPos, shouldScaleDown);
 			}
 			else
 			{
@@ -117,7 +155,7 @@ public class CustomMapCommand extends Command
 		return customMap;
 	}
 
-	private void giveImageCustomMap(Player player, String rawUrl, boolean shouldScaleDown)
+	private void giveImageCustomMap(Player player, String rawUrl, MapImage.Vector startPos, boolean shouldScaleDown)
 	{
 		URL url = null;
 
@@ -145,13 +183,13 @@ public class CustomMapCommand extends Command
 			return;
 		}
 
-		ItemStack customMap = createCustomMap(player.getWorld(), new ImageMapRenderer(image.get(), shouldScaleDown));
+		ItemStack customMap = createCustomMap(player.getWorld(), new ImageMapRenderer(image.get(), startPos, shouldScaleDown));
 
 		player.getInventory().addItem(customMap);
 
 		plugin.getCustomMapManager().addMap(
 			((MapMeta) customMap.getItemMeta()).getMapView().getId(),
-			new MapImage(url, shouldScaleDown)
+			new MapImage(url, startPos, shouldScaleDown)
 		);
 
 		ChatUtils.sendPrefixedMessage(player, "&aGenerated map from image " + url);
@@ -167,6 +205,10 @@ public class CustomMapCommand extends Command
 		else if(args.length == 3)
 		{
 			return Stream.of("true", "false").filter(arg -> args[2].startsWith(arg)).toList();
+		}
+		else if(args.length == 5)
+		{
+			return Stream.of("true", "false").filter(arg -> args[4].startsWith(arg)).toList();
 		}
 
 		return List.of();
