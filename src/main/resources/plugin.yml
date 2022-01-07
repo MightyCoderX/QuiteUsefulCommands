@@ -48,13 +48,13 @@ commands:
     usage: '/<command>'
     aliases: [
         'craft', 'wbench',
-        'enchanting', 'etable',
-        'loom',
-        'cartography', 'cartographytable', 'carttable',
-        'stonecutter',
-        'grindstone',
-        'smithingtable', 'smithtable',
-        'anvil', 'rename'
+#        'enchanting', 'etable',
+#        'loom',
+#        'cartography', 'cartographytable', 'carttable',
+#        'stonecutter',
+#        'grindstone',
+#        'smithingtable', 'smithtable',
+#        'anvil', 'rename'
     ]
     permission: 'quiteusefulcommands.crafting'
     

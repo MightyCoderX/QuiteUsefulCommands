@@ -1,24 +1,22 @@
 package io.github.mightycoderx.quiteusefulcommands.commands;
 
 import io.github.mightycoderx.quiteusefulcommands.utils.ChatUtils;
-import net.minecraft.core.BlockPosition;
-import net.minecraft.network.chat.ChatComponentText;
-import net.minecraft.network.protocol.game.PacketPlayOutOpenWindow;
-import net.minecraft.server.level.EntityPlayer;
-import net.minecraft.world.entity.player.EntityHuman;
-import net.minecraft.world.entity.player.PlayerInventory;
+import net.minecraft.network.chat.TextComponent;
+import net.minecraft.network.protocol.game.ClientboundOpenScreenPacket;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.*;
+import net.minecraft.world.item.ItemStack;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.craftbukkit.v1_18_R1.entity.CraftPlayer;
 import org.bukkit.craftbukkit.v1_18_R1.inventory.CraftInventoryPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryType;
-import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryView;
+import org.bukkit.inventory.PlayerInventory;
 
 import java.awt.event.ContainerEvent;
-import java.awt.event.ContainerListener;
 import java.util.List;
 
 public class WorkbenchCommand extends Command
@@ -43,32 +41,36 @@ public class WorkbenchCommand extends Command
 			switch (label)
 			{
 				case "craft", "wbench" ->
-					openedName = p.openWorkbench(null, true).getType().toString();
+				{
+					InventoryView crafting = p.openWorkbench(null, true);
+					if(crafting == null) return true;
+					openedName = crafting.getType().toString();
+				}
 
-				case "enchanting", "etable" ->
-					openedName = openInventory(p, InventoryType.ENCHANTING);
-
-				case "loom" ->
-					openedName = openInventory(p, InventoryType.LOOM);
-
-				case "cartography", "cartographytable", "carttable" ->
-					openedName = openInventory(p, InventoryType.CARTOGRAPHY);
-
-				case "stonecutter" ->
-					openedName = openInventory(p, InventoryType.STONECUTTER);
-
-				case "grindstone" ->
-					openedName = openInventory(p, InventoryType.GRINDSTONE);
-
-				case "smithingtable", "smithtable" ->
-					openedName = openInventory(p, InventoryType.SMITHING);
-
-				case "anvil", "rename" ->
-					openedName = openInventory(p, InventoryType.ANVIL);
+//				case "enchanting", "etable" ->
+//					openedName = openInventory(p, InventoryType.ENCHANTING);
+//
+//				case "loom" ->
+//					openedName = openInventory(p, InventoryType.LOOM);
+//
+//				case "cartography", "cartographytable", "carttable" ->
+//					openedName = openInventory(p, InventoryType.CARTOGRAPHY);
+//
+//				case "stonecutter" ->
+//					openedName = openInventory(p, InventoryType.STONECUTTER);
+//
+//				case "grindstone" ->
+//					openedName = openInventory(p, InventoryType.GRINDSTONE);
+//
+//				case "smithingtable", "smithtable" ->
+//					openedName = openInventory(p, InventoryType.SMITHING);
+//
+//				case "anvil", "rename" ->
+//					openedName = openInventory(p, InventoryType.ANVIL);
 
 			}
 
-			ChatUtils.sendPrefixedMessage(p, "&aOpened &7" + openedName);
+			ChatUtils.sendPrefixedMessage(p, "&aOpened &b" + openedName);
 		}
 		else
 		{
@@ -80,42 +82,41 @@ public class WorkbenchCommand extends Command
 
 	private String openInventory(Player player, InventoryType inventoryType)
 	{
-		EntityPlayer entityPlayer = ((CraftPlayer) player).getHandle();
+		ServerPlayer serverPlayer = ((CraftPlayer) player).getHandle();
 
-		Container container = null;
+		AbstractContainerMenu container = null;
 
-		int c = entityPlayer.nextContainerCounter();
-		PlayerInventory playerInventory = ((CraftInventoryPlayer) player.getInventory()).getInventory();
+		int c = serverPlayer.nextContainerCounter();
+		Inventory playerInventory = ((CraftInventoryPlayer) player.getInventory()).getInventory();
 
 		switch (inventoryType)
 		{
-			case LOOM -> container = new ContainerLoom(c, playerInventory);
-			case CARTOGRAPHY -> container = new ContainerCartography(c, playerInventory);
-			case STONECUTTER -> container = new ContainerStonecutter(c, playerInventory);
-			case GRINDSTONE -> container = new ContainerGrindstone(c, playerInventory);
-			case SMITHING -> container = new ContainerSmithing(c, playerInventory);
-			case ANVIL -> container = new ContainerAnvil(c, playerInventory);
+			case LOOM -> container = new LoomMenu(c, playerInventory);
+			case CARTOGRAPHY -> container = new CartographyTableMenu(c, playerInventory);
+			case STONECUTTER -> container = new StonecutterMenu(c, playerInventory);
+			case GRINDSTONE -> container = new GrindstoneMenu(c, playerInventory);
+			case SMITHING -> container = new SmithingMenu(c, playerInventory);
+			case ANVIL -> container = new AnvilMenu(c, playerInventory);
 			case ENCHANTING -> container = new EnchantContainer(c, playerInventory);
 		}
+		serverPlayer.containerMenu = container;
+		serverPlayer.containerMenu.checkReachable = false;
+		serverPlayer.initMenu(container);
 
-		entityPlayer.b.a(new PacketPlayOutOpenWindow(c, container.a(), new ChatComponentText(inventoryType.getDefaultTitle())));
-
-		entityPlayer.bW = container;
-		entityPlayer.bW.checkReachable = false;
-
+		serverPlayer.connection.send(new ClientboundOpenScreenPacket(container.containerId, container.getType(), new TextComponent(inventoryType.getDefaultTitle())));
 
 		return inventoryType.toString();
 	}
 
-	private static class EnchantContainer extends ContainerEnchantTable
+	private static class EnchantContainer extends EnchantmentMenu
 	{
-		public EnchantContainer(int i, PlayerInventory playerinventory)
+		public EnchantContainer(int i, Inventory inventory)
 		{
-			super(i, playerinventory);
+			super(i, inventory);
 		}
 
 		@Override
-		public boolean a(EntityHuman entityhuman)
+		public boolean stillValid(net.minecraft.world.entity.player.Player player)
 		{
 			return true;
 		}
