@@ -40,9 +40,11 @@ public class CustomMapManager
 			{
 				for(ItemStack item : player.getInventory().all(Material.FILLED_MAP).values())
 				{
-					if(((MapMeta) item.getItemMeta()).getMapView().getId() != id) continue;
-
 					MapMeta mapMeta = (MapMeta) item.getItemMeta();
+
+					if(mapMeta == null || mapMeta.getMapView() == null) continue;
+
+					if (mapMeta.getMapView().getId() != id) continue;
 
 					mapMeta.getMapView().getRenderers().clear();
 
