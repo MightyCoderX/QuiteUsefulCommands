@@ -27,6 +27,11 @@ public class MapsConfiguration
 
 		mapsFile = new File(mapManager.getPlugin().getDataFolder(), "maps.yml");
 
+		loadConfig();
+	}
+
+	public void loadConfig()
+	{
 		try
 		{
 			if(!mapsFile.exists())
@@ -67,8 +72,8 @@ public class MapsConfiguration
 		{
 			mapsFileConfig.set("maps." + id + ".url", mapImage.getUrl().toString());
 			mapsFileConfig.set("maps." + id + ".shouldScaleDown", mapImage.shouldScaleDown());
-			mapsFileConfig.set("maps." + id + ".startPos.x", mapImage.getStartPos().x);
-			mapsFileConfig.set("maps." + id + ".startPos.y", mapImage.getStartPos().y);
+			mapsFileConfig.set("maps." + id + ".startPos.x", mapImage.getStartPos().getX());
+			mapsFileConfig.set("maps." + id + ".startPos.y", mapImage.getStartPos().getY());
 		}
 		else if(obj instanceof Byte color)
 		{
@@ -134,5 +139,11 @@ public class MapsConfiguration
 			startPosSection.getInt("x"),
 			startPosSection.getInt("y")
 		);
+	}
+
+	public void reload()
+	{
+		loadConfig();
+		loadMaps();
 	}
 }

@@ -9,7 +9,7 @@ import org.bukkit.command.PluginCommand;
 public class ChatUtils
 {
 	public static String pluginName = ChatUtils.color("&bQuite&3Useful&5Commands&r");
-	public static String pluginHeader = ChatUtils.color("&3--------------&b«" + pluginName + "&b»&3--------------&r");
+	public static String pluginHeader = ChatUtils.color("&3--------------&8«" + pluginName + "&8»&3--------------&r");
 	public static String pluginPrefix = ChatUtils.color("&bQ&3U&5C&r");
 
 	public static void sendPrefixedMessage(CommandSender to, String message)
@@ -26,8 +26,19 @@ public class ChatUtils
 	{
 		PluginCommand pluginCommand = QuiteUsefulCommands.getPlugin(QuiteUsefulCommands.class).getCommand(cmd.getName());
 		if(pluginCommand == null) return;
+
 		String description = pluginCommand.getDescription();
-		sendMessage(to, "&3/" + cmd.getName() + " " + cmd.getUsage() + "&8 - &b" + description);
+		sendMessage(to, commandUsage(cmd.getName(), cmd.getUsage(), description));
+
+		for(String alias : pluginCommand.getAliases())
+		{
+			sendMessage(to, commandUsage(alias, cmd.getUsage(), description));
+		}
+	}
+
+	public static String commandUsage(String name, String usage, String description)
+	{
+		return "&3/" + name + " &5" + usage + "&8 - &b" + description;
 	}
 
 	public static String color(String message)

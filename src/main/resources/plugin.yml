@@ -44,9 +44,18 @@ commands:
     permission: 'quiteusefulcommands.enderchest'
   
   workbench:
-    description: 'Open a crafting table'
+    description: 'Open a workbench'
     usage: '/<command>'
-    aliases: ['craft', 'workbench', 'wb', 'crafting']
+    aliases: [
+        'craft', 'wbench',
+        'enchanting', 'etable',
+        'loom',
+        'cartography', 'cartographytable', 'carttable',
+        'stonecutter',
+        'grindstone',
+        'smithingtable', 'smithtable',
+        'anvil', 'rename'
+    ]
     permission: 'quiteusefulcommands.crafting'
     
   invsee:

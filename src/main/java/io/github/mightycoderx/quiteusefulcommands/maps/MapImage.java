@@ -5,14 +5,14 @@ import java.net.URL;
 public class MapImage
 {
 	private final URL url;
-	private final boolean shouldScaleDown;
 	private final Vector startPos;
+	private final boolean scaleDown;
 
-	public MapImage(URL url, Vector startPos, boolean shouldScaleDown)
+	public MapImage(URL url, Vector startPos, boolean scaleDown)
 	{
 		this.url = url;
 		this.startPos = startPos;
-		this.shouldScaleDown = shouldScaleDown;
+		this.scaleDown = scaleDown;
 	}
 
 	public URL getUrl()
@@ -27,18 +27,34 @@ public class MapImage
 
 	public boolean shouldScaleDown()
 	{
-		return shouldScaleDown;
+		return scaleDown;
 	}
 
 	public static class Vector
 	{
-		public int x;
-		public int y;
+		private final int x;
+		private final int y;
 
 		public Vector(int x, int y)
 		{
 			this.x = x;
 			this.y = y;
+		}
+
+		public Vector()
+		{
+			this.x = 0;
+			this.y = 0;
+		}
+
+		public int getX()
+		{
+			return x;
+		}
+
+		public int getY()
+		{
+			return y;
 		}
 	}
 }

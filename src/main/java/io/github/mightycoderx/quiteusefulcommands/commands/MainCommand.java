@@ -44,7 +44,8 @@ public class MainCommand extends Command
 			else if(args[0].equals("reload"))
 			{
 				commandManager.getPlugin().reloadConfig();
-				commandManager.getPlugin().getCustomMapManager().getMapsConfiguration().loadMaps();
+				commandManager.getPlugin().getCustomMapManager().getMapsConfiguration().reload();
+				ChatUtils.sendPrefixedMessage(sender, "&aAll configs reloaded!");
 			}
 			else
 			{

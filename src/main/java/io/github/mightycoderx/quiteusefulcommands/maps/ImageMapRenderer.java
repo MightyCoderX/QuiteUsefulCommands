@@ -1,24 +1,19 @@
 package io.github.mightycoderx.quiteusefulcommands.maps;
 
 import org.bukkit.entity.Player;
-import org.bukkit.map.MapCanvas;
-import org.bukkit.map.MapPalette;
-import org.bukkit.map.MapRenderer;
-import org.bukkit.map.MapView;
+import org.bukkit.map.*;
 
 import java.awt.*;
 
 public class ImageMapRenderer extends MapRenderer
 {
 	private final Image image;
-	private final boolean shouldScaleDown;
 	private final MapImage.Vector startPos;
 
-	public ImageMapRenderer(Image image, MapImage.Vector startPos, boolean shouldScaleDown)
+	public ImageMapRenderer(Image image, MapImage.Vector startPos, boolean scaleDown)
 	{
-		this.image = image;
+		this.image = scaleDown ? MapPalette.resizeImage(image) : image;
 		this.startPos = startPos;
-		this.shouldScaleDown = shouldScaleDown;
 	}
 
 	@Override
@@ -26,11 +21,6 @@ public class ImageMapRenderer extends MapRenderer
 	{
 		if(image == null) return;
 
-		Image img = image;
-		if(shouldScaleDown)
-		{
-			img = MapPalette.resizeImage(image);
-		}
-		canvas.drawImage(-startPos.x, -startPos.y, img);
+		canvas.drawImage(-startPos.getX(), -startPos.getY(), image);
 	}
 }
