@@ -37,7 +37,7 @@ public class CommandManager implements TabExecutor
 		commands.add(new RideCommand());
 		commands.add(new SpawnMobCommand());
 		commands.add(new CustomMapCommand(plugin));
-		commands.add(new FreezeCommand(commandManager));
+		commands.add(new FreezeCommand(this));
 
 	}
 
