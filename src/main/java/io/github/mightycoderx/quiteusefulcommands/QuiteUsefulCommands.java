@@ -3,6 +3,7 @@ package io.github.mightycoderx.quiteusefulcommands;
 import io.github.mightycoderx.quiteusefulcommands.commands.CommandManager;
 import io.github.mightycoderx.quiteusefulcommands.commands.Command;
 import io.github.mightycoderx.quiteusefulcommands.listeners.InventoryListener;
+import io.github.mightycoderx.quiteusefulcommands.listeners.PlayerMoveListener;
 import io.github.mightycoderx.quiteusefulcommands.maps.CustomMapManager;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -31,6 +32,7 @@ public class QuiteUsefulCommands extends JavaPlugin
 		}
 
 		getServer().getPluginManager().registerEvents(new InventoryListener(), this);
+		getServer().getPluginManager().registerEvents(new PlayerMoveListener(commandManager), this);
 	}
 
 	@Override

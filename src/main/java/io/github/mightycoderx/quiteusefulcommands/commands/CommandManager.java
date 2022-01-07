@@ -4,14 +4,18 @@ import io.github.mightycoderx.quiteusefulcommands.QuiteUsefulCommands;
 import io.github.mightycoderx.quiteusefulcommands.utils.ChatUtils;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabExecutor;
+import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class CommandManager implements TabExecutor
 {
 	private final QuiteUsefulCommands plugin;
 	private final ArrayList<Command> commands = new ArrayList<>();
+
+	private final ArrayList<UUID> frozenPlayers = new ArrayList<>();
 
 	public CommandManager(QuiteUsefulCommands plugin)
 	{
@@ -33,6 +37,7 @@ public class CommandManager implements TabExecutor
 		commands.add(new RideCommand());
 		commands.add(new SpawnMobCommand());
 		commands.add(new CustomMapCommand(plugin));
+		commands.add(new FreezeCommand(commandManager));
 
 	}
 
@@ -41,7 +46,7 @@ public class CommandManager implements TabExecutor
 	{
 		Command cmd = getCommand(command.getName());
 
-		if(!cmd.execute(sender, label, args))
+		if(!cmd.perform(sender, label, args))
 		{
 			ChatUtils.sendCommandUsage(sender, cmd);
 		}
@@ -73,5 +78,21 @@ public class CommandManager implements TabExecutor
 	public QuiteUsefulCommands getPlugin()
 	{
 		return plugin;
+	}
+
+	public boolean isPlayerFrozen(Player player)
+	{
+		return frozenPlayers.contains(player.getUniqueId());
+	}
+
+	public void freezePlayer(Player player)
+	{
+		frozenPlayers.add(player.getUniqueId());
+	}
+
+	public void unFreezePlayer(Player player)
+	{
+		if(!isPlayerFrozen(player)) return;
+		frozenPlayers.remove(player.getUniqueId());
 	}
 }

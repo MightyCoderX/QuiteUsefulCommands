@@ -77,6 +77,11 @@ commands:
     
   custommap:
     description: 'Gives you a custom map with the color or image you specified'
-    usage: '/<command> <image <url>|color <color>> [player]'
+    usage: '/<command> <color <color> | image <url> [<startPosX> <startPosY>] [<scaleDown>] | big_image <url>'
     permission: 'quiteusefulcommands.custommap'
+    
+  freeze:
+    description: 'Toggles freeze for the specified player'
+    usage: '/<command> <player>'
+    permission: 'quiteusefulcommands.freeze'
     

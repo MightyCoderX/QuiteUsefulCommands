@@ -16,7 +16,7 @@ public abstract class Command
 		this.usage = usage;
 	}
 
-	public abstract boolean execute(CommandSender sender, String label, String[] args);
+	public abstract boolean perform(CommandSender sender, String label, String[] args);
 
 	public List<String> tabComplete(CommandSender sender, String alias, String[] args)
 	{

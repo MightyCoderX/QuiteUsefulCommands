@@ -20,7 +20,7 @@ public class EnderChestCommand extends Command
 	}
 
 	@Override
-	public boolean execute(CommandSender sender, String label, String[] args)
+	public boolean perform(CommandSender sender, String label, String[] args)
 	{
 		if(!(sender instanceof Player p))
 		{

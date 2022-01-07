@@ -19,7 +19,7 @@ public class MainCommand extends Command
 	}
 
 	@Override
-	public boolean execute(CommandSender sender, String label, String[] args)
+	public boolean perform(CommandSender sender, String label, String[] args)
 	{
 		if(args.length == 0)
 		{

@@ -20,7 +20,7 @@ public class GamemodeCommand extends Command
 	}
 
 	@Override
-	public boolean execute(CommandSender sender, String label, String[] args)
+	public boolean perform(CommandSender sender, String label, String[] args)
 	{
 		System.out.println(getName() + " " + label);
 		if(label.equals("gm"))
