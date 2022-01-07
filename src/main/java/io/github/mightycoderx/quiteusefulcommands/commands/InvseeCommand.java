@@ -73,7 +73,7 @@ public class InvseeCommand extends Command
 	{
 		if(args.length == 1)
 		{
-			return CommandUtils.getOfflineAndOnlinePlayersList(sender, args[0]);
+			return null;
 		}
 
 		return List.of();
