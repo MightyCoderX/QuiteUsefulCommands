@@ -90,3 +90,9 @@ commands:
     usage: '/<command> [<player>]'
     permission: 'quiteusefulcommands.godmode'
     
+  speed:
+    description: "Set your or <player>'s fly/walk speed to <amount>"
+    usage: '/<command> <fly | walk> <speed> [player]'
+    aliases: ['flyspeed', 'walkspeed']
+    permission: 'quiteusefulcommands.speed'
+    

@@ -1,7 +1,6 @@
 package io.github.mightycoderx.quiteusefulcommands.utils;
 
 import io.github.mightycoderx.quiteusefulcommands.commands.CommandMessage;
-import net.minecraft.network.PacketListener;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
@@ -78,5 +77,12 @@ public class CommandUtils
 		}
 
 		return suggestions;
+	}
+
+	public static List<String> getSortedArgs(String current, String... args)
+	{
+		return Arrays.stream(args)
+				.filter(arg -> StringUtil.startsWithIgnoreCase(arg, current))
+				.sorted(String.CASE_INSENSITIVE_ORDER).toList();
 	}
 }

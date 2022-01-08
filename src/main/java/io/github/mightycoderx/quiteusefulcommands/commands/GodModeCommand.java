@@ -82,12 +82,14 @@ public class GodModeCommand extends Command
 			player.setFlying(true);
 			player.setVisualFire(false);
 			player.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, (int) 10e100, 50, true, false));
+			player.addPotionEffect(new PotionEffect(PotionEffectType.FAST_DIGGING, (int) 10e100, 50, true, false));
 		}
 		else
 		{
 			player.setAllowFlight(false);
 			player.setVisualFire(true);
 			player.removePotionEffect(PotionEffectType.INCREASE_DAMAGE);
+			player.removePotionEffect(PotionEffectType.FAST_DIGGING);
 		}
 	}
 

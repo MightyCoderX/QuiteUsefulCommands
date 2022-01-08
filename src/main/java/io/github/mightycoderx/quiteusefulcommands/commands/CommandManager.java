@@ -38,6 +38,7 @@ public class CommandManager implements TabExecutor
 		commands.add(new CustomMapCommand(plugin));
 		commands.add(new FreezeCommand(this));
 		commands.add(new GodModeCommand(this));
+		commands.add(new SpeedCommand());
 	}
 
 	@Override

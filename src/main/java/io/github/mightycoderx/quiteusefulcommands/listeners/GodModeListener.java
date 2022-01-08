@@ -58,13 +58,4 @@ public class GodModeListener implements Listener
 		}
 		commandManager.removeGodmodePlayer(player);
 	}
-
-	@EventHandler
-	public void onPlayerToggleFlight(PlayerToggleFlightEvent e)
-	{
-		if(!e.isFlying() && !e.getPlayer().getLocation().subtract(0, 1, 0).getBlock().getType().isAir())
-		{
-			e.setCancelled(true);
-		}
-	}
 }
