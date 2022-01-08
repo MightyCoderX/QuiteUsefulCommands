@@ -6,16 +6,15 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabExecutor;
 import org.bukkit.entity.Player;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 public class CommandManager implements TabExecutor
 {
 	private final QuiteUsefulCommands plugin;
 	private final ArrayList<Command> commands = new ArrayList<>();
 
-	private final ArrayList<UUID> frozenPlayers = new ArrayList<>();
+	private final Set<UUID> frozenPlayers = new HashSet<>();
+	private final Set<UUID> godmodePlayers = new HashSet<>();
 
 	public CommandManager(QuiteUsefulCommands plugin)
 	{
@@ -38,7 +37,7 @@ public class CommandManager implements TabExecutor
 		commands.add(new SpawnMobCommand());
 		commands.add(new CustomMapCommand(plugin));
 		commands.add(new FreezeCommand(this));
-
+		commands.add(new GodModeCommand(this));
 	}
 
 	@Override
@@ -94,5 +93,21 @@ public class CommandManager implements TabExecutor
 	{
 		if(!isPlayerFrozen(player)) return;
 		frozenPlayers.remove(player.getUniqueId());
+	}
+
+	public boolean isPlayerInGodmode(Player player)
+	{
+		return godmodePlayers.contains(player.getUniqueId());
+	}
+
+	public void addGodmodePlayer(Player player)
+	{
+		godmodePlayers.add(player.getUniqueId());
+	}
+
+	public void removeGodmodePlayer(Player player)
+	{
+		if(!isPlayerInGodmode(player)) return;
+		godmodePlayers.remove(player.getUniqueId());
 	}
 }

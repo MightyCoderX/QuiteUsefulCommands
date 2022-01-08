@@ -29,15 +29,15 @@ public class FreezeCommand extends Command
 				return true;
 			}
 
-			if(commandManager.isPlayerFrozen(target))
-			{
-				commandManager.unFreezePlayer(target);
-				ChatUtils.sendPrefixedMessage(sender, "&aUnfrozen player &b" + target.getName());
-			}
-			else
+			if(!commandManager.isPlayerFrozen(target))
 			{
 				commandManager.freezePlayer(target);
 				ChatUtils.sendPrefixedMessage(sender, "&aFrozen player &b" + target.getName());
+			}
+			else
+			{
+				commandManager.unFreezePlayer(target);
+				ChatUtils.sendPrefixedMessage(sender, "&aUnfrozen player &b" + target.getName());
 			}
 		}
 		else

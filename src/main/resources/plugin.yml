@@ -85,3 +85,8 @@ commands:
     usage: '/<command> <player>'
     permission: 'quiteusefulcommands.freeze'
     
+  godmode:
+    description: 'Toggles godmode for you or <player>'
+    usage: '/<command> [<player>]'
+    permission: 'quiteusefulcommands.godmode'
+    
