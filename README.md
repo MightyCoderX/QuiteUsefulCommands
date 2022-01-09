@@ -25,7 +25,6 @@ _Updates you or `<player>` to the selected gamemode_
 _Updates you or `<player>` to gamemode adventure_
 
 `/gmc [<player>]`<br>
-
 _Updates you or `<player>` to gamemode creative_
 
 `/gms [<player>]`<br>
