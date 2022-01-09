@@ -58,3 +58,19 @@ _Spawns a mob or multiple_
 _Generates a custom map with a background of a sigle color or an image. 
 The `big_image` argument gives you all the needed maps to compose a bigger image 
 (⚠️ **WARNING** ⚠️ Trying to generate images over 700px width or height causes a lot of lag and may crash your server)`_
+
+`/freeze <player>`<br>
+_Toggles freeze for `<player>`_
+
+`/godmode <player>`<br>
+_Toggles godmode for you or `<player>`_
+
+`/speed <fly|walk> <speed> [<player>]`<br>
+_Sets your or `<player>`'s fly/walk speed to `<speed>`_
+
+`/flyspeed <speed> [<player>]`<br>
+_Sets your or `<player>`'s fly speed to `<speed>`_
+
+`/walkspeed <speed> [<player>]`<br>
+_Sets your or `<player>`'s walk speed to `<speed>`_
+
