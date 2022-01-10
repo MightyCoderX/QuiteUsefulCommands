@@ -81,7 +81,7 @@ commands:
     permission: 'quiteusefulcommands.custommap'
     
   freeze:
-    description: 'Toggles freeze for the specified player'
+    description: 'Toggles freeze for <player>'
     usage: '/<command> <player>'
     permission: 'quiteusefulcommands.freeze'
     
@@ -91,7 +91,7 @@ commands:
     permission: 'quiteusefulcommands.godmode'
     
   speed:
-    description: "Set your or <player>'s fly/walk speed to <amount>"
+    description: "Set your or <player>'s fly/walk speed to <speed>"
     usage: '/<command> <fly | walk> <speed> [player]'
     aliases: ['flyspeed', 'walkspeed']
     permission: 'quiteusefulcommands.speed'
