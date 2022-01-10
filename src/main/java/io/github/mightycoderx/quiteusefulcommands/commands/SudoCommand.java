@@ -5,8 +5,6 @@ import io.github.mightycoderx.quiteusefulcommands.utils.CommandUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.help.HelpTopic;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -24,15 +22,15 @@ public class SudoCommand extends Command
 	{
 		if(args.length >= 2)
 		{
-			Player p = CommandUtils.getPlayerFromArg(sender, args[0]);
-			if(p == null) return true;
+			Player player = CommandUtils.getPlayerFromArg(sender, args[0]);
+			if(player == null) return true;
 
 			String command = String.join(" ", Arrays.copyOfRange(args, 1, args.length));
 
 			if(command.startsWith("c:"))
 			{
-				p.chat(command.substring(2));
-				ChatUtils.sendPrefixedMessage(sender, "&aForced &6" + p.getName() + "&a to chat &9" + command);
+				player.chat(command.substring(2));
+				ChatUtils.sendPrefixedMessage(sender, "&aForced &6" + player.getName() + "&a to chat &9" + command);
 				return true;
 			}
 			else if(command.startsWith("/"))
@@ -40,8 +38,8 @@ public class SudoCommand extends Command
 				command = command.replace("/", "");
 			}
 
-			p.performCommand(command);
-			ChatUtils.sendPrefixedMessage(sender, "&aForced &6" + p.getName() + "&a to execute command &9/" + command);
+			player.performCommand(command);
+			ChatUtils.sendPrefixedMessage(sender, "&aForced &6" + player.getName() + "&a to execute command &9/" + command);
 		}
 		else
 		{

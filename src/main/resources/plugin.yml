@@ -96,3 +96,8 @@ commands:
     aliases: ['flyspeed', 'walkspeed']
     permission: 'quiteusefulcommands.speed'
     
+  powertool:
+    description: 'Bind a command to the item in your hand'
+    usage: '/<command> <add [c:]<command> | remove | clear [player]>'
+    aliases: ['pt']
+    permission: 'quiteusefulcommands.powertool'

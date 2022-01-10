@@ -1,6 +1,7 @@
 package io.github.mightycoderx.quiteusefulcommands.commands;
 
 import io.github.mightycoderx.quiteusefulcommands.utils.ChatUtils;
+import io.github.mightycoderx.quiteusefulcommands.utils.CommandUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.command.CommandSender;
@@ -31,13 +32,8 @@ public class HealCommand extends Command
 		}
 		else if(args.length == 1)
 		{
-			Player target = Bukkit.getPlayer(args[0]);
-
-			if(target == null)
-			{
-				ChatUtils.sendPrefixedMessage(sender, "&cPlayer not found");
-				return true;
-			}
+			Player target = CommandUtils.getPlayerFromArg(sender, args[0]);
+			if(target == null) return true;
 
 			healPlayer(target);
 			ChatUtils.sendPrefixedMessage(sender, "&aHealed &b" + target.getDisplayName() + "!");

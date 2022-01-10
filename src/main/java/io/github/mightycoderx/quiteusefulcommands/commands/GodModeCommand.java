@@ -1,6 +1,7 @@
 package io.github.mightycoderx.quiteusefulcommands.commands;
 
 import io.github.mightycoderx.quiteusefulcommands.utils.ChatUtils;
+import io.github.mightycoderx.quiteusefulcommands.utils.CommandUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -45,13 +46,8 @@ public class GodModeCommand extends Command
 		}
 		else if(args.length == 1)
 		{
-			Player target = Bukkit.getPlayer(args[0]);
-
-			if(target == null)
-			{
-				ChatUtils.sendPrefixedMessage(sender, CommandMessage.PLAYER_NOT_FOUND);
-				return true;
-			}
+			Player target = CommandUtils.getPlayerFromArg(sender, args[0]);
+			if(target == null) return true;
 
 			if(!commandManager.isPlayerInGodMode(target))
 			{
