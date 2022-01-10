@@ -2,6 +2,7 @@ package io.github.mightycoderx.quiteusefulcommands.commands;
 
 import io.github.mightycoderx.quiteusefulcommands.QuiteUsefulCommands;
 import io.github.mightycoderx.quiteusefulcommands.utils.ChatUtils;
+import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabExecutor;
 import org.bukkit.entity.Player;
@@ -96,7 +97,12 @@ public class CommandManager implements TabExecutor
 		frozenPlayers.remove(player.getUniqueId());
 	}
 
-	public boolean isPlayerInGodmode(Player player)
+	public List<Player> getGodModePlayers()
+	{
+		return godmodePlayers.stream().map(Bukkit::getPlayer).toList();
+	}
+
+	public boolean isPlayerInGodMode(Player player)
 	{
 		return godmodePlayers.contains(player.getUniqueId());
 	}
@@ -108,7 +114,7 @@ public class CommandManager implements TabExecutor
 
 	public void removeGodmodePlayer(Player player)
 	{
-		if(!isPlayerInGodmode(player)) return;
+		if(!isPlayerInGodMode(player)) return;
 		godmodePlayers.remove(player.getUniqueId());
 	}
 }

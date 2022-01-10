@@ -6,6 +6,7 @@ import io.github.mightycoderx.quiteusefulcommands.listeners.GodModeListener;
 import io.github.mightycoderx.quiteusefulcommands.listeners.InventoryListener;
 import io.github.mightycoderx.quiteusefulcommands.listeners.PlayerMoveListener;
 import io.github.mightycoderx.quiteusefulcommands.maps.CustomMapManager;
+import io.github.mightycoderx.quiteusefulcommands.tasks.GodModeTask;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -35,6 +36,8 @@ public class QuiteUsefulCommands extends JavaPlugin
 		getServer().getPluginManager().registerEvents(new InventoryListener(), this);
 		getServer().getPluginManager().registerEvents(new PlayerMoveListener(commandManager), this);
 		getServer().getPluginManager().registerEvents(new GodModeListener(commandManager), this);
+
+		new GodModeTask(commandManager).runTaskTimer(this, 0, 1);
 	}
 
 	@Override

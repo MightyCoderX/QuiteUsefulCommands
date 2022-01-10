@@ -9,7 +9,7 @@ import java.util.List;
 
 public class MainCommand extends Command
 {
-	private CommandManager commandManager;
+	private final CommandManager commandManager;
 
 	public MainCommand(CommandManager commandManager)
 	{

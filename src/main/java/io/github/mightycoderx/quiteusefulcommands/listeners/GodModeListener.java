@@ -9,7 +9,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.event.player.PlayerToggleFlightEvent;
 
 public class GodModeListener implements Listener
 {
@@ -23,7 +22,7 @@ public class GodModeListener implements Listener
 	@EventHandler
 	public void onPlayerJoin(PlayerJoinEvent e)
 	{
-		if(!commandManager.isPlayerInGodmode(e.getPlayer())) return;
+		if(!commandManager.isPlayerInGodMode(e.getPlayer())) return;
 
 		GodModeCommand godModeCommand = (GodModeCommand) commandManager.getCommand("godmode");
 		godModeCommand.setGodMode(e.getPlayer(), true);
@@ -35,7 +34,7 @@ public class GodModeListener implements Listener
 		if(!(e.getEntity() instanceof Player player)) return;
 		if(e.getCause().equals(EntityDamageEvent.DamageCause.VOID)) return;
 
-		if(commandManager.isPlayerInGodmode(player))
+		if(commandManager.isPlayerInGodMode(player))
 		{
 			e.setCancelled(true);
 			e.getEntity().setFireTicks(0);
@@ -49,7 +48,7 @@ public class GodModeListener implements Listener
 
 		Player player = e.getEntity().getPlayer();
 
-		if(commandManager.isPlayerInGodmode(player))
+		if(commandManager.isPlayerInGodMode(player))
 		{
 			e.setKeepLevel(true);
 			e.setKeepInventory(true);
