@@ -24,7 +24,7 @@ public class PowerToolListener implements Listener
 	{
 		if(e.getAction() == Action.LEFT_CLICK_AIR ||
 			e.getAction() == Action.LEFT_CLICK_BLOCK ||
-			e.getAction().equals(Action.PHYSICAL)) return;
+			e.getAction()  == Action.PHYSICAL) return;
 
 		PlayerInventory playerInventory = e.getPlayer().getInventory();
 

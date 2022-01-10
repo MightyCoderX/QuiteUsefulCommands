@@ -1,9 +1,7 @@
 package io.github.mightycoderx.quiteusefulcommands.commands;
 
-import io.github.mightycoderx.quiteusefulcommands.inventories.FullPlayerInventory;
 import io.github.mightycoderx.quiteusefulcommands.utils.ChatUtils;
 import io.github.mightycoderx.quiteusefulcommands.utils.CommandUtils;
-import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;

@@ -85,7 +85,7 @@ public class WorkbenchCommand extends Command
 		int c = serverPlayer.nextContainerCounter();
 		Inventory playerInventory = ((CraftInventoryPlayer) player.getInventory()).getInventory();
 
-		switch (inventoryType)
+		switch(inventoryType)
 		{
 			case LOOM -> container = new LoomMenu(c, playerInventory);
 			case CARTOGRAPHY -> container = new CartographyTableMenu(c, playerInventory);
